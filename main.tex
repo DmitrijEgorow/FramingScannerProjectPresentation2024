@@ -1,0 +1,688 @@
+% !TEX encoding = UTF-8 Unicode
+%\documentclass{beamer} %voce pode usar este modelo tambem
+\documentclass{beamer}%[handout]{beamer}
+
+% for XeLaTex use this code below
+\usepackage{fontspec}
+% \setmainfont[
+%   Ligatures=TeX,
+%   Extension=.otf,
+%   BoldFont=cmunbx,
+%   ItalicFont=cmunti,
+%   BoldItalicFont=cmunbi,
+% ]{cmunrm}
+% \setsansfont[
+%   Ligatures=TeX,
+%   Extension=.otf,
+%   BoldFont=cmunsx,
+%   ItalicFont=cmunsi,
+% ]{cmunss}
+
+
+%\setmainfont{Roboto}
+%\setsansfont[Scale=MatchUppercase]{Roboto Light}
+%\setmonofont[Scale=MatchUppercase]{Hack}
+\usepackage{xfrac,unicode-math}
+%\setmathfont{Noto Serif}
+
+% for LuaLatex use this code below for russian language
+%\usepackage{fontspec}
+%\setmainfont{CMU Serif}[Ligatures=TeX]
+%\setsansfont{CMU Sans Serif}[Ligatures=TeX]
+
+\usepackage{inputenc}
+%\usepackage[utf8x]{inputenc}         % кодовая страница документа
+\usepackage{indentfirst}   % русский стиль: отступ первого абзаца раздела
+%\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx,url, lastpage}
+\usepackage{wrapfig}
+\usepackage{ulem} %зачеркнуть
+
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+\usepackage{makecell} % Перенос в таблице
+
+
+
+\batchmode
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{4 on 1}[letterpaper,landscape,border shrink=5mm]
+\usepackage{amsmath,amssymb,enumerate,epsfig,bbm,calc,color,ifthen,capt-of}
+%\usetheme{Berlin}
+\usetheme{Berlin}
+% skips the subsection headlines
+\setbeamertemplate{headline}
+{%
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}{section in head/foot}
+    \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+  \end{beamercolorbox}
+}
+% removes footline
+\setbeamertemplate{footline}{}
+% insert page number
+\addtobeamertemplate{navigation symbols}{}{%
+  \usebeamerfont{footline}%
+  \usebeamercolor[fg]{footline}%
+  \hspace{2em}%
+  %\insertframenumber/\inserttotalframenumber
+  \raisebox{1.3pt}[0pt][0pt]{\insertframenumber/\inserttotalframenumber}
+}
+\usepackage{enumitem}
+%
+%\setitemize{label=\usebeamerfont*{itemize item}%
+%  \usebeamercolor[fg]{itemize item}
+%  \usebeamertemplate{itemize item}}
+
+\setlist[itemize]{%
+  label=\usebeamerfont*{itemize item}%
+  \usebeamercolor[fg]{itemize item}%
+  \usebeamertemplate{itemize item}%
+}%http://tex.stackexchange.com/a/24491
+\setlist[enumerate,1]{%
+  label=\protect\usebeamerfont{enumerate item}%
+  \protect\usebeamercolor[fg]{enumerate item}%
+  \insertenumlabel.%
+}
+% definition of new key for enumitem:
+\makeatletter
+\enitkv@key{enumitem}{overlay}{%
+  \beamerdefaultoverlayspecification{#1}%
+}
+\makeatother
+%\setbeamerfont{title}{shape=\itshape,family=\rmfamily}
+%\setbeamerfont{alerted text}{shape=\itshape,family=\rmfamily}
+%\setbeamerfont{palette primary}{shape=\itshape,family=\rmfamily}
+%\setbeamerfont{palette secondary}{shape=\itshape,family=\rmfamily}
+%\setbeamerfont{palette tertiary}{shape=\itshape,family=\rmfamily}
+%\setbeamerfont{palette quaternary}{shape=\itshape,family=\rmfamily}
+%\setbeamerfont{headline}{shape=\itshape,family=\rmfamily, size=\tiny}
+%\setbeamerfont{headline}{size*={6pt}}
+
+%\usecolortheme{senac}
+
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+
+
+
+
+% Multiple columns
+\usepackage{multicol}
+
+
+
+%listings for code
+
+\usepackage{color} %% это для отображения цвета в коде
+\usepackage{listings} %% собственно, это и есть пакет listings
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{black}} %% это сделает текст заголовка белым white
+% black, blue, brown, cyan, darkgray, gray, green, lightgray, lime, magenta, olive, orange, pink, purple, red, teal, violet, white, yellow
+%% код ниже нарисует серую рамочку вокруг заголовка кода.
+\definecolor{light-gray}{gray}{0.9}
+\DeclareCaptionFormat{listing}{\colorbox{light-gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+
+\lstset{ %
+  language=Java,                 % выбор языка для подсветки (здесь это С)
+  basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+  morekeywords={class},
+  numbers=left,               % где поставить нумерацию строк (слева\справа)
+  numberstyle=\tiny,           % размер шрифта для номеров строк
+  stepnumber=1,                   % размер шага между двумя номерами строк
+  numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+  backgroundcolor=\color{white}, % цвет фона подсветки - используем \usepackage{color}
+  showspaces=false,            % показывать или нет пробелы специальными отступами
+  showstringspaces=false,      % показывать или нет пробелы в строках
+  showtabs=false,             % показывать или нет табуляцию в строках
+  frame=single,              % рисовать рамку вокруг кода
+  tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+  captionpos=t,              % позиция заголовка вверху [t] или внизу [b]
+  breaklines=true,           % автоматически переносить строки (да\нет)
+  breakatwhitespace=false, % переносить строки только если есть пробел
+  escapeinside={\%*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+
+
+% \textbf{Automated Testing System for Android Applications of Samsung Innovation Campus Learners}
+
+% \textbf{Supervisor: Olga V. Maksimenkova, \\
+% Associate Professor, \\ Faculty of Computer Science / School of Software Engineering}
+
+
+
+%-------------------------Titulo/Autores/Orientador------------------------------------------------
+\title[Automated Testing System for Android Applications of Samsung Innovation Campus Learners]{
+Automated Testing System for \\ Android Applications of \\ Samsung Innovation Campus Learners}
+%\date{Fuad Aleskerov,  Dmitry Egorov, Vyacheslav Yakuba \\ \ \\  Higher School of Economics \\ \ \\  May 23, 2022 }%\\ Moscow, 2022 }
+\date{ Dmitry Egorov \\ \ \\   Supervisor \\ Olga V. Maksimenkova \\ Candidate of Sciences (PhD), Associate Professor  \\ \ \\
+HSE University \\ 5 June 2024 }%\\ Moscow, 2022 }
+\author[Dmitry Egorov \hspace{10em} \insertpagenumber \ /  \pageref{LastPage}]{        }
+
+%-------------------------Logo na parte de baixo do slide------------------------------------------
+%\pgfdeclareimage[height=0.7cm]{senac-logo}{senac-logo.pdf}
+%\logo{\pgfuseimage{senac-logo}\hspace*{0.5cm}}
+
+
+%----------------------------- Declare
+%\pgfdeclareimage[height=2.7cm]{turnir}{togo7}
+
+
+%-------------------------Este código faz o menuzinho bacana na parte superior do slide------------
+% \AtBeginSection[]
+% {
+%   \begin{frame}<beamer>
+%     \frametitle{Содержание}
+%     \tableofcontents[currentsection]
+%   \end{frame}
+% }
+% \beamerdefaultoverlayspecification{<+->}
+% -----------------------------------------------------------------------------
+\begin{document}
+% -----------------------------------------------------------------------------
+
+\newenvironment{changemargin}{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{-0.4cm}%
+\setlength{\rightmargin}{-0.4cm}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}
+
+%---Gerador de Sumário---------------------------------------------------------
+\frame{\titlepage}
+% \begin{frame}{Содержание}
+%   \tableofcontents
+%  \end{frame}
+\setlist{nolistsep, itemsep=3pt,parsep=0pt,leftmargin=1pt}
+
+%\logo{}
+
+%-----------------------------------------------------------------------------
+\section[Testing System]{Testing System}
+\begin{frame}{Introduction}
+%\footnotesize
+
+Educational courses → {\usebeamercolor[fg]{structure} Online judges (OJ) }
+
+Universities develop their own OJ systems (no manual routine)
+
+Learning languages (Java, Python, Kotlin) \textit{vs} Learning Android
+
+Obstacles for Android labs: we need Android devices
+
+Mocking objects
+
+Nudging students and boosting their intrinsic motivation
+
+Instruments adopted by industry
+
+%\begin{figure}[h]
+%  \begin{minipage}[h]{0.4\linewidth}
+%    \hbox{\hspace{-0.1em}\includegraphics[width=\linewidth]{img/three_stages_scheme.png}}
+%    %\caption{\footnotesize Integration into existing infrastructure}
+%  \end{minipage}
+%\end{figure}
+
+
+
+\end{frame}
+%------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
+%\begin{frame}{Thesis (Research) Statement}
+\begin{frame}{Introduction}
+\footnotesize
+
+We propose customisable approaches to the automated testing system specifically for Android labs
+
+We focus on Samsung Innovation Campus courses
+
+{\usebeamercolor[fg]{structure} Main goal}: to develop software for educational purposes capable of evaluating students' Android labs based on devised test scenarios
+
+% \vspace{1.5ex}
+
+Tasks:
+\begin{enumerate}
+\item Investigating features of currently available OJ systems
+\item Examining the problems of flakiness and students' fraud
+\item Describing outer components of the system that will enable integrations with existing LMSs
+\item Building the architecture of the system and defining inner modules that could be reused or adapted
+\item Implementing Android labs with UI tests
+\item Testing the software with real students
+%\item Validating the real data
+\item Analysing the results and highlighting feasible improvements
+\end{enumerate}
+
+
+
+\end{frame}
+%---------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Online judges}
+\begin{changemargin}
+\footnotesize
+
+
+
+\begin{table}[h]
+\centering\begin{tabular}{rl}
+\toprule
+Title         & Website                     \\
+\midrule
+Acmp          & https://acmp.ru/            \\
+Acmu          & https://acmu.ru/            \\
+AtCoder       & https://atcoder.jp/         \\
+Codeforces    & https://codeforces.com/     \\
+Informatics   & https://informatics.msk.ru/ \\
+TopCoder      & https://www.topcoder.com/   \\
+Timus         & https://acm.timus.ru/       \\
+YandexContest & https://contest.yandex.ru   \\
+\bottomrule
+\end{tabular}
+\caption{Some popular online judges for competitive programming used by students in Russia}
+\label{table:online_judges}
+\end{table}
+
+\begin{itemize}
+\item<1-> code quality checks
+\item<1-> plagiarism detection
+\item<1-> reports with meaningful feedback
+\item<1-> stress-tested
+\item<1-> topics annotation
+\item<1-> scalability
+\end{itemize}
+
+%{\usebeamercolor[fg]{structure} quantitative (with mathematical models)}  / qualitative (expert-based)
+
+% \begin{figure}[h]
+%  \begin{minipage}[h]{0.5\linewidth}
+%  \hbox{\hspace{-0.1em}\includegraphics[width=\linewidth]{lebanon.png}}
+%  \caption{\footnotesize Wheat trade (subgraph), 2021}
+%  \end{minipage}
+%  \end{figure}
+
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Comparison of OJs}
+\begin{changemargin}
+\footnotesize
+
+
+\begin{table}[h]
+\centering\begin{tabular}{p{10ex}p{9ex}p{9ex}p{9ex}p{9ex}p{9ex}p{9ex}}
+\toprule
+Criteria &
+SIC &
+Acmp &
+AtCoder &
+Codeforces &
+Timus &
+Yandex Contest \\
+\midrule
+Android Development Focus &
+\small{Yes} &
+\small{No} &
+\small{No} &
+\small{No} &
+\small{No} &
+\small{No} \\
+Performance Feedback &
+\small{Detailed} &
+\small{Basic} &
+\small{Detailed} &
+\small{Detailed} &
+\small{Basic} &
+\small{Detailed} \\
+Platform API &
+\small{Future plans} &
+\small{No} &
+\small{Yes} &
+\small{Yes} &
+\small{No} &
+\small{Limited} \\
+Average Waiting Time &
+\small{$\sim$1--2~min} &
+\small{$\sim$1--2~min} &
+\small{$\sim$1 min} &
+\small{$\sim$30 sec to 1 min} &
+\small{$\sim$1--2~min} &
+\small{$\sim$1--2~min} \\
+
+\bottomrule
+\end{tabular}
+\label{table:oj_comparison}
+\end{table}
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
+\begin{frame}{Integration into existing infrastructure}
+\footnotesize
+
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.9\linewidth}
+\hbox{\hspace{-0.1em}\includegraphics[width=0.9\linewidth]{img/three_stages_scheme.png}}
+%\caption{\footnotesize Integration into existing infrastructure}
+\end{minipage}
+\end{figure}
+
+
+
+\end{frame}
+%---------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{}
+\begin{changemargin}
+\footnotesize
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.91\linewidth}
+\hbox{\hspace{-2em}\includegraphics[width=0.91\linewidth]{img/core_specific_modules.png}}
+\end{minipage}
+\end{figure}
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Continuous Integration (CI)}
+\begin{changemargin}
+\footnotesize
+
+
+\begin{itemize}
+\item Version Control System (VCS): self-hosted gitea at https://sicampus.ru/gitea/
+\item Build automation: our Gradle scripts to override files with instrumented tests
+\item Testing frameworks (\textit{e.g.} JUnit, Espresso, UIAutomator, Kapsresso) to ensure code quality and identify bugs
+\end{itemize}
+
+
+
+\begin{table}
+\caption{Comparison of popular native testing frameworks}
+\centering\begin{tabulary}{1.1\textwidth}{LLLLL}
+\toprule
+& \textbf{Kaspresso}            & \textbf{Espresso}                             & \textbf{UIAutomator}                              & \textbf{Kautomator} \\
+\midrule
+
+Lang.                                & Kotlin                                                 & Java                                 & Java                                     & Kotlin                                     \\
+Flaky Test Handling                     & Built-in retries and stability mechanisms              & Retry mechanism (external)           & Manual implementation needed             & Built-in retries and stability mechanisms  \\
+Min API                           & 18                                                     & 8                                    & 18                                       & 18                                         \\
+Released                           & 2019                                                   & 2013                                 & 2013                                     & 2020                                       \\
+Community Support                       & Growing                                                & Well-established                     & Well-established                         & Growing                                    \\
+
+%\bottomrule
+\end{tabulary}
+\label{table:espress_kaspresso_comparison}
+\end{table}
+
+
+
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Flakiness}
+\begin{changemargin}
+\footnotesize
+
+
+\begin{table}[h]
+\caption{Some common reasons for test flakiness}
+\centering\begin{tabular}{rl}
+\toprule
+Possible reason                & Examples                                   \\
+\midrule
+Async wait                     & Improper asynchronous operations           \\
+Concurrency                    & Coroutine launches                         \\
+Test order                     & Navigation across fragments without return \\
+Resource leaks                 & Fragment binding leaks                     \\
+Network                        & Opening socket connections                 \\
+Other IO operations            & Disk is full                               \\
+Random generators              & Usage of class SecureRandom                \\
+Time                           & Relying on class System                    \\
+Operations with floating point & Summation of test scores                   \\
+Unordered collections          & Usage of Set implementations               \\
+\bottomrule
+\end{tabular}
+\label{table:flakiness_causes}
+\end{table}
+
+
+GitHub actions: Shaker with device matrix
+
+Local orchestration: Marathon with built-in retry system
+
+Our device farm in Russian Technological University MIREA
+
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Assessment}
+\begin{changemargin}
+\footnotesize
+
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.9\linewidth}
+\hbox{\hspace{-2em}\includegraphics[width=0.5\linewidth]{img/test_matrix.png}}
+\end{minipage}
+\end{figure}
+
+We launch our tests on 3 different devices simultaneously and send the maximum score across all runs to the Android Bundle
+
+Tablets and phones (including Samsung Flip models)
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Generating task description}
+\begin{changemargin}
+\footnotesize
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.9\linewidth}
+\hbox{\hspace{-2em}\includegraphics[width=0.9\linewidth]{img/randomisation_discord}}
+\end{minipage}
+\end{figure}
+
+Sample randomisation of a practical assignment on the topic of RecyclerView gives us 6 versions of the same task, which are checked by the same tests (on the left), and logs registered on the Discord analytics server with randomised input text (on the right)
+
+
+Dynamically calculate the number of elements in the list based on the number of the current week
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{}
+\begin{changemargin}
+\footnotesize
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.92\linewidth}
+\hbox{\hspace{-2em}\includegraphics[width=0.92\linewidth]{img/gradle_scheme.png}}
+\end{minipage}
+\end{figure}
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\section[Results]{Results}
+\begin{frame}{Results and Discussion}
+\begin{changemargin}
+\footnotesize
+%\scriptsize
+
+%\vspace{1.2ex}
+
+Our comprehensive solution for evaluating students' programming assignments in the Android course
+
+A modular and customisable approach to building an automated testing system tailored specifically for Android labs
+
+Partitioning the unified test codebase into core and lab-specific components assigns different responsibilities to the platform team and educators
+
+%Isolating key components for the segregation of duties within the core team and educators
+
+Covering the topics of the Samsung Innovation Campus Android courses at http://itschool.innovationcampus.ru \vspace{1.2ex}
+
+\begin{itemize}
+\item<1-> core module for calculating students' marks and preparing the project (as git submodules)
+\item<1-> approaches for giving feedback by adding extra messages to the test steps
+\item<1-> performance checks, monkey testing, and feature toggles
+\item<1-> monitoring devices and gathering analytics by Instabug and custom analytics server in Discord
+\item<1-> pilot trial of the system on school and university students
+\end{itemize}
+
+Future directions: extend support for compose layouts, enhance collaboration to leverage students' collective expertise, and personalise learning trajectories based on student profiles.
+
+%\vspace{1.10ex}26.01.2023: Joint Scientific Seminar of the Strategic Project <<National Centre for Scientific, Technological and Socio-Economic Foresight>>, presentation <<Network analysis under deep uncertainty: The problem of food security>>
+
+
+
+
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\section[References]{References}
+\begin{frame}{ }
+\begin{changemargin}
+\footnotesize
+
+\begin{minipage}[t][0.8715\textheight]{\linewidth}
+\begin{center}
+Thank you! \vspace{1.5ex}
+\end{center}
+
+\scriptsize
+\begin{enumerate}
+
+\item<1->[[1\text{]}] A. D. Gordon, “Better than our biases: Using psychological research to inform our approach to inclusive, effective feedback”, Clinical L. Rev., vol. 27, p. 195, 2020.
+\item<1->[[2\text{]}] S. Wasik, M. Antczak, J. Badura, A. Laskowski, and T. Sternal, “A survey on online judge systems and their applications”, ACM Computing Surveys (CSUR), vol. 51, no. 1, pp. 1–34, 2018.
+\item<1->[[3\text{]}] F. Iffath, A. Kayes, M. T. Rahman, J. Ferdows, M. S. Arefin, and M. S. Hossain, “Online judging platform utilizing dynamic plagiarism detection facilities”, Computers, vol. 10, no. 4, p. 47, 2021.
+\item<1->[[4\text{]}] R. Wang, “Design and practice of the blended learning model based on an online judge system”, International Journal of Continuing Engineering Education and Life Long Learning, vol. 27, no. 1-2, pp. 45–56, 2017.
+\item<1->[[5\text{]}] N. Yusof, N. A. M. Zin, and N. S. Adnan, “Java programming assessment tool for assignment module in moodle e-learning system”, Procedia-Social and Behavioral Sciences, vol. 56, pp. 767–773, 2012.
+\item<1->[[6\text{]}] N. Yadav and J. E. DeBello, “Recommended practices for Python pedagogy in graduate data science courses”, in 2019 IEEE Frontiers in Education Conference (FIE), IEEE, 2019, pp. 1–7.
+\item<1->[[7\text{]}] A. Kosowski, M. Małafiejski, and T. Noiński, “Application of an online judge & contester system in academic tuition”, in Advances in Web Based Learning–ICWL 2007: 6th International Conference Edinburgh, UK, August 15-17, 2007 Revised Papers 6, Springer, 2008, pp. 343–354.
+
+
+
+\end{enumerate}
+
+
+\vspace{3ex}% or \vfill
+% Dmitry Egorov, tegorkrsk@gmail.com
+\end{minipage}
+
+
+%\vspace{20ex}
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+
+\begin{frame}{ }
+\footnotesize
+
+\begin{minipage}[t][0.8715\textheight]{\linewidth}
+\begin{center}
+Thank you! \vspace{1.5ex}
+\end{center}
+
+\scriptsize
+\begin{enumerate}
+
+\item<1->[[8\text{]}] S. H. Edwards and M. A. Pérez-Quiñones, “Experiences using test-driven development with an automated grader”, Journal of Computing Sciences in Colleges, vol. 22, no. 3, pp. 44–50, 2007.
+\item<1->[[9\text{]}] K. Georgouli and P. Guerreiro, “Incorporating an automatic judge into blended learning programming activities”, in Advances in Web-Based Learning–ICWL 2010: 9th International Conference, Shanghai, China, December 8-10, 2010. Proceedings 9, Springer, 2010, pp. 81–90.
+\item<1->[[10\text{]}]Z. Dong, A. Tiwari, X. L. Yu, and A. Roychoudhury, “Flaky test detection in android via event order exploration”, in Proceedings of the 29th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2021, pp. 367–378.
+\item<1->[[11\text{]}] S. Thorve, C. Sreshtha, and N. Meng, “An empirical study of flaky tests in android apps”, in 2018 IEEE International Conference on Software Maintenance and Evolution (ICSME), IEEE, 2018, pp. 534–538.
+\item<1->[[12\text{]}] S. Heckman and J. King, “Developing software engineering skills using real tools for automated grading”, in Proceedings of the 49th ACM technical symposium on computer science education, 2018, pp. 794–799.
+\item<1->[[13\text{]}] R. P. Godinho, R. S. C. Espinosa, and C. Horgan, “Mobile software testing and evaluation on real devices in higher education: An irish open device lab case study”, Revista EducaOnline, vol. 15, no. 2, pp. 167–196, 2021.
+
+
+\end{enumerate}
+
+
+\vspace{3ex}% or \vfill
+% Dmitry Egorov, tegorkrsk@gmail.com
+\end{minipage}
+
+
+%\vspace{20ex}
+
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Technologies}
+\begin{changemargin}
+\footnotesize
+
+
+\begin{table}[h]
+\caption{Frameworks that were used in the system}
+\centering\begin{tabular}{rl}
+\toprule
+Library     & Description                           \\
+\midrule
+UIAutomator & Interacting directly with the device  \\
+Kaspresso   & Launching UI tests                    \\
+Kakao       & Launching UI tests                    \\
+Diskord     & Connecting to Discord server via REST \\
+JUnit       & Launching unit-tests                  \\
+Marathon    & Device orchestration                  \\
+\bottomrule
+\end{tabular}
+\label{table:libraries}
+\end{table}
+
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{}
+\begin{changemargin}
+\footnotesize
+
+\begin{figure}[h]
+\begin{minipage}[h]{0.9\linewidth}
+\hbox{\hspace{-2em}\includegraphics[width=0.9\linewidth]{img/uitests_lab312.png}}
+\end{minipage}
+\end{figure}
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+
+\end{document}
+%-----------------------------------------------Este comentario nunca aparecera
