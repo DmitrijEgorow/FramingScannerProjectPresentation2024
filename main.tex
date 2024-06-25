@@ -167,11 +167,11 @@
 
 
 %-------------------------Titulo/Autores/Orientador------------------------------------------------
-\title[Automated Testing System for Android Applications of Samsung Innovation Campus Learners]{
-Automated Testing System for \\ Android Applications of \\ Samsung Innovation Campus Learners}
+\title[Developing an Android Application for Indoor Control Inspections of Construction Progress]{
+  Developing an Android Application for Indoor Control Inspections of \\ Construction Progress}
 %\date{Fuad Aleskerov,  Dmitry Egorov, Vyacheslav Yakuba \\ \ \\  Higher School of Economics \\ \ \\  May 23, 2022 }%\\ Moscow, 2022 }
-\date{ Dmitry Egorov \\ \ \\   Supervisor \\ Olga V. Maksimenkova \\ Candidate of Sciences (PhD), Associate Professor  \\ \ \\
-HSE University \\ 5 June 2024 }%\\ Moscow, 2022 }
+\date{ Dmitry Egorov \\ \ \\   Supervisor \\ Aleksey D. Shadrikov \\ Senior Specialist \\ AI Track Curator at Samsung Innovation Campus \\ Samsung Electronics Rus Company  \\ \ \\
+HSE University \\ 29 June 2024 }%\\ Moscow, 2022 }
 \author[Dmitry Egorov \hspace{10em} \insertpagenumber \ /  \pageref{LastPage}]{        }
 
 %-------------------------Logo na parte de baixo do slide------------------------------------------
@@ -217,23 +217,13 @@ HSE University \\ 5 June 2024 }%\\ Moscow, 2022 }
 %\logo{}
 
 %-----------------------------------------------------------------------------
-\section[Testing System]{Testing System}
+\section[System overview]{System overview}
 \begin{frame}{Introduction}
 %\footnotesize
 
-Educational courses → {\usebeamercolor[fg]{structure} Online judges (OJ) }
+Mobile devices → {\usebeamercolor[fg]{structure} On-device inference }
 
-Universities develop their own OJ systems (no manual routine)
 
-Learning languages (Java, Python, Kotlin) \textit{vs} Learning Android
-
-Obstacles for Android labs: we need Android devices
-
-Mocking objects
-
-Nudging students and boosting their intrinsic motivation
-
-Instruments adopted by industry
 
 %\begin{figure}[h]
 %  \begin{minipage}[h]{0.4\linewidth}
@@ -259,7 +249,7 @@ We focus on Samsung Innovation Campus courses
 
 % \vspace{1.5ex}
 
-Tasks:
+Objectives:
 \begin{enumerate}
 \item Investigating features of currently available OJ systems
 \item Examining the problems of flakiness and students' fraud
@@ -267,7 +257,6 @@ Tasks:
 \item Building the architecture of the system and defining inner modules that could be reused or adapted
 \item Implementing Android labs with UI tests
 \item Testing the software with real students
-%\item Validating the real data
 \item Analysing the results and highlighting feasible improvements
 \end{enumerate}
 
@@ -282,24 +271,6 @@ Tasks:
 
 
 
-\begin{table}[h]
-\centering\begin{tabular}{rl}
-\toprule
-Title         & Website                     \\
-\midrule
-Acmp          & https://acmp.ru/            \\
-Acmu          & https://acmu.ru/            \\
-AtCoder       & https://atcoder.jp/         \\
-Codeforces    & https://codeforces.com/     \\
-Informatics   & https://informatics.msk.ru/ \\
-TopCoder      & https://www.topcoder.com/   \\
-Timus         & https://acm.timus.ru/       \\
-YandexContest & https://contest.yandex.ru   \\
-\bottomrule
-\end{tabular}
-\caption{Some popular online judges for competitive programming used by students in Russia}
-\label{table:online_judges}
-\end{table}
 
 \begin{itemize}
 \item<1-> code quality checks
@@ -329,50 +300,6 @@ YandexContest & https://contest.yandex.ru   \\
 \footnotesize
 
 
-\begin{table}[h]
-\centering\begin{tabular}{p{10ex}p{9ex}p{9ex}p{9ex}p{9ex}p{9ex}p{9ex}}
-\toprule
-Criteria &
-SIC &
-Acmp &
-AtCoder &
-Codeforces &
-Timus &
-Yandex Contest \\
-\midrule
-Android Development Focus &
-\small{Yes} &
-\small{No} &
-\small{No} &
-\small{No} &
-\small{No} &
-\small{No} \\
-Performance Feedback &
-\small{Detailed} &
-\small{Basic} &
-\small{Detailed} &
-\small{Detailed} &
-\small{Basic} &
-\small{Detailed} \\
-Platform API &
-\small{Future plans} &
-\small{No} &
-\small{Yes} &
-\small{Yes} &
-\small{No} &
-\small{Limited} \\
-Average Waiting Time &
-\small{$\sim$1--2~min} &
-\small{$\sim$1--2~min} &
-\small{$\sim$1 min} &
-\small{$\sim$30 sec to 1 min} &
-\small{$\sim$1--2~min} &
-\small{$\sim$1--2~min} \\
-
-\bottomrule
-\end{tabular}
-\label{table:oj_comparison}
-\end{table}
 
 \end{changemargin}
 \end{frame}
@@ -421,26 +348,6 @@ Average Waiting Time &
 
 
 
-\begin{table}
-\caption{Comparison of popular native testing frameworks}
-\centering\begin{tabulary}{1.1\textwidth}{LLLLL}
-\toprule
-& \textbf{Kaspresso}            & \textbf{Espresso}                             & \textbf{UIAutomator}                              & \textbf{Kautomator} \\
-\midrule
-
-Lang.                                & Kotlin                                                 & Java                                 & Java                                     & Kotlin                                     \\
-Flaky Test Handling                     & Built-in retries and stability mechanisms              & Retry mechanism (external)           & Manual implementation needed             & Built-in retries and stability mechanisms  \\
-Min API                           & 18                                                     & 8                                    & 18                                       & 18                                         \\
-Released                           & 2019                                                   & 2013                                 & 2013                                     & 2020                                       \\
-Community Support                       & Growing                                                & Well-established                     & Well-established                         & Growing                                    \\
-
-%\bottomrule
-\end{tabulary}
-\label{table:espress_kaspresso_comparison}
-\end{table}
-
-
-
 
 \end{changemargin}
 \end{frame}
@@ -451,33 +358,6 @@ Community Support                       & Growing                               
 \footnotesize
 
 
-\begin{table}[h]
-\caption{Some common reasons for test flakiness}
-\centering\begin{tabular}{rl}
-\toprule
-Possible reason                & Examples                                   \\
-\midrule
-Async wait                     & Improper asynchronous operations           \\
-Concurrency                    & Coroutine launches                         \\
-Test order                     & Navigation across fragments without return \\
-Resource leaks                 & Fragment binding leaks                     \\
-Network                        & Opening socket connections                 \\
-Other IO operations            & Disk is full                               \\
-Random generators              & Usage of class SecureRandom                \\
-Time                           & Relying on class System                    \\
-Operations with floating point & Summation of test scores                   \\
-Unordered collections          & Usage of Set implementations               \\
-\bottomrule
-\end{tabular}
-\label{table:flakiness_causes}
-\end{table}
-
-
-GitHub actions: Shaker with device matrix
-
-Local orchestration: Marathon with built-in retry system
-
-Our device farm in Russian Technological University MIREA
 
 
 \end{changemargin}
@@ -513,10 +393,8 @@ Tablets and phones (including Samsung Flip models)
 \end{minipage}
 \end{figure}
 
-Sample randomisation of a practical assignment on the topic of RecyclerView gives us 6 versions of the same task, which are checked by the same tests (on the left), and logs registered on the Discord analytics server with randomised input text (on the right)
 
 
-Dynamically calculate the number of elements in the list based on the number of the current week
 \end{changemargin}
 \end{frame}
 %------------------------------------------------------------------------------
@@ -586,13 +464,13 @@ Thank you! \vspace{1.5ex}
 \scriptsize
 \begin{enumerate}
 
-\item<1->[[1\text{]}] A. D. Gordon, “Better than our biases: Using psychological research to inform our approach to inclusive, effective feedback”, Clinical L. Rev., vol. 27, p. 195, 2020.
-\item<1->[[2\text{]}] S. Wasik, M. Antczak, J. Badura, A. Laskowski, and T. Sternal, “A survey on online judge systems and their applications”, ACM Computing Surveys (CSUR), vol. 51, no. 1, pp. 1–34, 2018.
-\item<1->[[3\text{]}] F. Iffath, A. Kayes, M. T. Rahman, J. Ferdows, M. S. Arefin, and M. S. Hossain, “Online judging platform utilizing dynamic plagiarism detection facilities”, Computers, vol. 10, no. 4, p. 47, 2021.
-\item<1->[[4\text{]}] R. Wang, “Design and practice of the blended learning model based on an online judge system”, International Journal of Continuing Engineering Education and Life Long Learning, vol. 27, no. 1-2, pp. 45–56, 2017.
-\item<1->[[5\text{]}] N. Yusof, N. A. M. Zin, and N. S. Adnan, “Java programming assessment tool for assignment module in moodle e-learning system”, Procedia-Social and Behavioral Sciences, vol. 56, pp. 767–773, 2012.
-\item<1->[[6\text{]}] N. Yadav and J. E. DeBello, “Recommended practices for Python pedagogy in graduate data science courses”, in 2019 IEEE Frontiers in Education Conference (FIE), IEEE, 2019, pp. 1–7.
-\item<1->[[7\text{]}] A. Kosowski, M. Małafiejski, and T. Noiński, “Application of an online judge & contester system in academic tuition”, in Advances in Web Based Learning–ICWL 2007: 6th International Conference Edinburgh, UK, August 15-17, 2007 Revised Papers 6, Springer, 2008, pp. 343–354.
+\item<1->[[1\text{]}] 
+\item<1->[[2\text{]}] 
+\item<1->[[3\text{]}] 
+\item<1->[[4\text{]}] 
+\item<1->[[5\text{]}] 
+\item<1->[[6\text{]}] 
+\item<1->[[7\text{]}] 
 
 
 
@@ -665,20 +543,6 @@ Marathon    & Device orchestration                  \\
 \label{table:libraries}
 \end{table}
 
-
-\end{changemargin}
-\end{frame}
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-\begin{frame}{}
-\begin{changemargin}
-\footnotesize
-
-\begin{figure}[h]
-\begin{minipage}[h]{0.9\linewidth}
-\hbox{\hspace{-2em}\includegraphics[width=0.9\linewidth]{img/uitests_lab312.png}}
-\end{minipage}
-\end{figure}
 
 \end{changemargin}
 \end{frame}
