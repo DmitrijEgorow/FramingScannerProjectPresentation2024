@@ -170,8 +170,8 @@
 \title[Developing an Android Application for Indoor Control Inspections of Construction Progress]{
   Developing an Android Application for Indoor Control Inspections of \\ Construction Progress}
 %\date{Fuad Aleskerov,  Dmitry Egorov, Vyacheslav Yakuba \\ \ \\  Higher School of Economics \\ \ \\  May 23, 2022 }%\\ Moscow, 2022 }
-\date{ Dmitry Egorov \\ \ \\   Supervisor \\ Aleksey D. Shadrikov \\ Senior Specialist \\ AI Track Curator at Samsung Innovation Campus \\ Samsung Electronics Rus Company  \\ \ \\
-HSE University \\ 29 June 2024 }%\\ Moscow, 2022 }
+\date{ Dmitry Egorov \\ \ \\   Supervisor \\ Aleksey D. Shadrikov \\ Senior Specialist \\ AI Track Curator at Samsung Innovation Campus  \\ \ \\
+HSE University / 29 June 2024 }%\\ Moscow, 2022 }
 \author[Dmitry Egorov \hspace{10em} \insertpagenumber \ /  \pageref{LastPage}]{        }
 
 %-------------------------Logo na parte de baixo do slide------------------------------------------
@@ -217,11 +217,11 @@ HSE University \\ 29 June 2024 }%\\ Moscow, 2022 }
 %\logo{}
 
 %-----------------------------------------------------------------------------
-\section[System overview]{System overview}
-\begin{frame}{Introduction}
+%\section[System overview]{System overview}
+%\begin{frame}{Introduction}
 %\footnotesize
 
-Mobile devices → {\usebeamercolor[fg]{structure} On-device inference }
+%Mobile devices → {\usebeamercolor[fg]{structure} On-device inference }
 
 
 
@@ -234,100 +234,111 @@ Mobile devices → {\usebeamercolor[fg]{structure} On-device inference }
 
 
 
-\end{frame}
+%\end{frame}
 %------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------
-%\begin{frame}{Thesis (Research) Statement}
+\section[Introduction]{Introduction}
 \begin{frame}{Introduction}
 \footnotesize
 
-We propose customisable approaches to the automated testing system specifically for Android labs
+We propose customisable approaches to the system specifically for Android labs
 
-We focus on Samsung Innovation Campus courses
+\begin{itemize}
 
-{\usebeamercolor[fg]{structure} Main goal}: to develop software for educational purposes capable of evaluating students' Android labs based on devised test scenarios
+\item Traditional methods of indoor control inspections face challenges due to manual processes and data delays
 
-% \vspace{1.5ex}
+\item {\usebeamercolor[fg]{structure} Main goal}: to develop software that provides real-time inspections with on-device model inference
 
-Objectives:
-\begin{enumerate}
-\item Investigating features of currently available OJ systems
-\item Examining the problems of flakiness and students' fraud
-\item Describing outer components of the system that will enable integrations with existing LMSs
-\item Building the architecture of the system and defining inner modules that could be reused or adapted
-\item Implementing Android labs with UI tests
-\item Testing the software with real students
-\item Analysing the results and highlighting feasible improvements
-\end{enumerate}
+\item Advantages: improved accuracy, reduced time on-site, and instant data synchronization.
+
+\item Prior research has explored construction progress monitoring using computer vision, AR, robotics, but with a focus on outdoor picture.
+
+\end{itemize}
+
+Objectives are:
+
+1. Developing a client-server system architecture for communication and data transfer.
+
+2. Implementing an Android application with adapted interface and inspection features (object recognition).
+
+3. Integrating efficient on-device object recognition models and implementing additional post-processing tasks.
+
+4. Evaluating the system under several mocks.
 
 
 
 \end{frame}
 %---------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\begin{frame}{Online judges}
+\begin{frame}{Methodology}
 \begin{changemargin}
 \footnotesize
 
-
-
-
-\begin{itemize}
-\item<1-> code quality checks
-\item<1-> plagiarism detection
-\item<1-> reports with meaningful feedback
-\item<1-> stress-tested
-\item<1-> topics annotation
-\item<1-> scalability
-\end{itemize}
 
 %{\usebeamercolor[fg]{structure} quantitative (with mathematical models)}  / qualitative (expert-based)
 
-% \begin{figure}[h]
-%  \begin{minipage}[h]{0.5\linewidth}
-%  \hbox{\hspace{-0.1em}\includegraphics[width=\linewidth]{lebanon.png}}
-%  \caption{\footnotesize Wheat trade (subgraph), 2021}
-%  \end{minipage}
-%  \end{figure}
+ \begin{figure}[h]
+  \begin{minipage}[h]{0.65\linewidth}
+  \hbox{\hspace{-0.1em}\includegraphics[width=\linewidth]{img/stages_of_research}}
+  \end{minipage}
+  \end{figure}
 
 
 \end{changemargin}
 \end{frame}
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\begin{frame}{Comparison of OJs}
+\section[System overview]{System overview}
+\begin{frame}{High-level system architecture overview with data flows}
 \begin{changemargin}
 \footnotesize
 
-
-
-\end{changemargin}
-\end{frame}
-%------------------------------------------------------------------------------
-%-----------------------------------------------------------------------------
-\begin{frame}{Integration into existing infrastructure}
-\footnotesize
-
-
 \begin{figure}[h]
-\begin{minipage}[h]{0.9\linewidth}
-\hbox{\hspace{-0.1em}\includegraphics[width=0.9\linewidth]{img/three_stages_scheme.png}}
-%\caption{\footnotesize Integration into existing infrastructure}
+\begin{minipage}[h]{\linewidth}
+\hbox{\hspace{-0.8em}\includegraphics[width=1.08\linewidth]{img/system_overview}}
 \end{minipage}
 \end{figure}
 
 
 
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
+\begin{frame}{On-device \textit{vs} server-based inference comparison}
+\footnotesize
+
+
+\begin{table}[h!]
+%\caption{Comparison of our solution with server-based inference and conventional approaches}
+\centering\begin{tabulary}{1.03\textwidth}{LLLL}
+\toprule
+\textbf{Aspect}  & \textbf{Our Solution (On-Device Inference)}   & \textbf{Server-Based Inference}  & \textbf{Conventional Approaches}    \\
+\midrule
+Recognition  & Automated via on-device ML model   & Automated via ML model on server & Manual inspection and identification \\
+Latency             & Low                                & Moderate                         & High                                 \\
+Offline Capability  & Fully functional                   & Not available                    & Fully functional (manual processes)  \\
+Model Update        & Requires model sync                & Easy to update                   & Not applicable                       \\
+Inspection Accuracy & High with antifraud module         & High with antifraud module       & Variable                             \\
+Report Generation   & Automated report generation        & Automated report generation      & Manual report preparation            \\
+\bottomrule
+\end{tabulary}
+\label{table:solution_comparison}
+\end{table}
+
+
+
+
 \end{frame}
 %---------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\begin{frame}{}
+\begin{frame}{Soft Voting Classifier}
 \begin{changemargin}
 \footnotesize
 
 \begin{figure}[h]
 \begin{minipage}[h]{0.91\linewidth}
-\hbox{\hspace{-2em}\includegraphics[width=0.91\linewidth]{img/core_specific_modules.png}}
+\hbox{\hspace{-2em}\includegraphics[width=0.91\linewidth]{img/efficientnet_spec}}
 \end{minipage}
 \end{figure}
 
@@ -335,77 +346,64 @@ Objectives:
 \end{frame}
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\begin{frame}{Continuous Integration (CI)}
+\begin{frame}{Android Application Development}
 \begin{changemargin}
 \footnotesize
 
+\begin{table}[h]
+\caption{List of frameworks for the app}
+\centering\begin{tabular}{rl}
+\toprule
+Library   & Description                          \\
+\midrule
+CameraX  & Interacting with the camera and showing preview \\
+NavigationKTX   & Navigating inside the app and switching between fragments                   \\
+DataStore       & Saving data locally                   \\
+TFLite       & Image classification models inference \\ & MobileNet v3, EfficientNet-Lite4, and DenseNet                  \\
+Diskord     & Connecting to Discord server via REST  \\
+JUnit       & Launching unit-tests for the View Model (MVVM architecture)                \\
+\bottomrule
+\end{tabular}
+\label{table:libraries}
+\end{table}
 
+\vspace{1.5ex} Server for retrieving the necessary configuration settings and feature flags, see FeatureService Kotlin class
+
+Sealed class (with descendants such as window, door and radiator) for abstract object that we detect
+
+pre-trained on ImageNet--1K (ILSVRC-2012-CLS dataset)
+
+\end{changemargin}
+\end{frame}
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\begin{frame}{Degree of credibility}
+\begin{changemargin}
+\footnotesize
+
+Modern mobile devices are equipped with a variety of sensors that can provide some information about the device's environment
 \begin{itemize}
-\item Version Control System (VCS): self-hosted gitea at https://sicampus.ru/gitea/
-\item Build automation: our Gradle scripts to override files with instrumented tests
-\item Testing frameworks (\textit{e.g.} JUnit, Espresso, UIAutomator, Kapsresso) to ensure code quality and identify bugs
+    \item GPS sensor
+    \item Accelerometer
+    \item Gyroscope
+    \item Magnetic field sensor
+    \item Proximity sensor
 \end{itemize}
 
-
-
-
+ For example, the GPS location does not match the expected construction site coordinates → a warning is triggered
+ 
 \end{changemargin}
 \end{frame}
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\begin{frame}{Flakiness}
-\begin{changemargin}
-\footnotesize
-
-
-
-
-\end{changemargin}
-\end{frame}
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-\begin{frame}{Assessment}
+\begin{frame}{UI}
 \begin{changemargin}
 \footnotesize
 
 
 \begin{figure}[h]
-\begin{minipage}[h]{0.9\linewidth}
-\hbox{\hspace{-2em}\includegraphics[width=0.5\linewidth]{img/test_matrix.png}}
-\end{minipage}
-\end{figure}
-
-We launch our tests on 3 different devices simultaneously and send the maximum score across all runs to the Android Bundle
-
-Tablets and phones (including Samsung Flip models)
-
-\end{changemargin}
-\end{frame}
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-\begin{frame}{Generating task description}
-\begin{changemargin}
-\footnotesize
-
-\begin{figure}[h]
-\begin{minipage}[h]{0.9\linewidth}
-\hbox{\hspace{-2em}\includegraphics[width=0.9\linewidth]{img/randomisation_discord}}
-\end{minipage}
-\end{figure}
-
-
-
-\end{changemargin}
-\end{frame}
-%------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
-\begin{frame}{}
-\begin{changemargin}
-\footnotesize
-
-\begin{figure}[h]
-\begin{minipage}[h]{0.92\linewidth}
-\hbox{\hspace{-2em}\includegraphics[width=0.92\linewidth]{img/gradle_scheme.png}}
+\begin{minipage}[h]{0.3\linewidth}
+\hbox{\hspace{-2em}\includegraphics[width=\linewidth]{img/app_ui}}
 \end{minipage}
 \end{figure}
 
@@ -419,30 +417,21 @@ Tablets and phones (including Samsung Flip models)
 \footnotesize
 %\scriptsize
 
-%\vspace{1.2ex}
-
-Our comprehensive solution for evaluating students' programming assignments in the Android course
-
-A modular and customisable approach to building an automated testing system tailored specifically for Android labs
-
-Partitioning the unified test codebase into core and lab-specific components assigns different responsibilities to the platform team and educators
-
-%Isolating key components for the segregation of duties within the core team and educators
-
-Covering the topics of the Samsung Innovation Campus Android courses at http://itschool.innovationcampus.ru \vspace{1.2ex}
-
 \begin{itemize}
-\item<1-> core module for calculating students' marks and preparing the project (as git submodules)
-\item<1-> approaches for giving feedback by adding extra messages to the test steps
-\item<1-> performance checks, monkey testing, and feature toggles
-\item<1-> monitoring devices and gathering analytics by Instabug and custom analytics server in Discord
-\item<1-> pilot trial of the system on school and university students
+\item<1-> Our comprehensive solution for for indoor control inspections of construction progress
+\item<1-> A server mock and a client application
+\item<1-> On-device ML for real-time inference directly on the Android phone or tablet
+\item<1-> The minimum supported version is Android Oreo (API 26)
+\item<1-> The ML system is implemented using TensorFlow Lite, employing lightweight models optimised for on-device inference
+\item<1-> Standard indoor lighting conditions, though variations in lighting are common in actual construction sites
+\item<1-> The application requires Internet connectivity, at least during app launch
 \end{itemize}
 
-Future directions: extend support for compose layouts, enhance collaboration to leverage students' collective expertise, and personalise learning trajectories based on student profiles.
+\vspace{1.5ex} Our work contributes to the field by providing a practical solution for construction progress monitoring and highlights improvements over existing methods in terms of credibility and data transfer delays \vspace{1.2ex}
 
-%\vspace{1.10ex}26.01.2023: Joint Scientific Seminar of the Strategic Project <<National Centre for Scientific, Technological and Socio-Economic Foresight>>, presentation <<Network analysis under deep uncertainty: The problem of food security>>
+Future directions for the Android part: extend support for compose layouts
 
+\vspace{1.10ex} Code Availability Statement. https://github.com/DmitrijEgorow/AndroidFramingScanner
 
 
 
@@ -464,13 +453,14 @@ Thank you! \vspace{1.5ex}
 \scriptsize
 \begin{enumerate}
 
-\item<1->[[1\text{]}] 
-\item<1->[[2\text{]}] 
-\item<1->[[3\text{]}] 
-\item<1->[[4\text{]}] 
-\item<1->[[5\text{]}] 
-\item<1->[[6\text{]}] 
-\item<1->[[7\text{]}] 
+\item<1->[[1\text{]}] Y. Zou, A. Kiviniemi, and S. W. Jones, “A review of risk management through BIM and BIM-related technologies”, Safety science, vol. 97, pp. 88–98, 2017.
+\item<1->[[2\text{]}] X. Wang, P. E. Love, M. J. Kim, C.-S. Park, C.-P. Sing, and L. Hou, “A conceptual framework for integrating building information modeling with augmented reality”, Automation in construction, vol. 34, pp. 37–44, 2013.
+\item<1->[[3\text{]}] J. Wang, W. Sun, W. Shou, X. Wang, C. Wu, H.-Y. Chong, Y. Liu, and C. Sun, “Integrating BIM and LiDAR for real-time construction quality control”, Journal
+of Intelligent & Robotic Systems, vol. 79, pp. 417–432, 2015.
+\item<1->[[4\text{]}] M. Golparvar-Fard, F. Pena-Mora, and S. Savarese, “Automated progress monitoring using unordered daily construction photographs and IFC-based building information models”, Journal of Computing in Civil Engineering, vol. 29, no. 1, p. 04 014 025, 2015.
+\item<1->[[5\text{]}] S. Halder, K. Afsari, J. Serdakowski, S. DeVito, M. Ensafi, and W. Thabet, “Real- time and remote construction progress monitoring with a quadruped robot using augmented reality”, Buildings, vol. 12, no. 11, p. 2027, 2022.
+\item<1->[[6\text{]}] C. Zhang and D. Arditi, “Automated progress control using laser scanning technology”, Automation in construction, vol. 36, pp. 108–116, 2013.
+\item<1->[[7\text{]}] M. Golparvar-Fard, F. Peña-Mora, and S. Savarese, “Integrated sequential as-built and as-planned representation with d 4 ar tools in support of decision-making tasks in the aec/fm industry”, Journal of Construction Engineering and Management, vol. 137, no. 12, pp. 1099–1116, 2011.
 
 
 
@@ -500,12 +490,14 @@ Thank you! \vspace{1.5ex}
 \scriptsize
 \begin{enumerate}
 
-\item<1->[[8\text{]}] S. H. Edwards and M. A. Pérez-Quiñones, “Experiences using test-driven development with an automated grader”, Journal of Computing Sciences in Colleges, vol. 22, no. 3, pp. 44–50, 2007.
-\item<1->[[9\text{]}] K. Georgouli and P. Guerreiro, “Incorporating an automatic judge into blended learning programming activities”, in Advances in Web-Based Learning–ICWL 2010: 9th International Conference, Shanghai, China, December 8-10, 2010. Proceedings 9, Springer, 2010, pp. 81–90.
-\item<1->[[10\text{]}]Z. Dong, A. Tiwari, X. L. Yu, and A. Roychoudhury, “Flaky test detection in android via event order exploration”, in Proceedings of the 29th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, 2021, pp. 367–378.
-\item<1->[[11\text{]}] S. Thorve, C. Sreshtha, and N. Meng, “An empirical study of flaky tests in android apps”, in 2018 IEEE International Conference on Software Maintenance and Evolution (ICSME), IEEE, 2018, pp. 534–538.
-\item<1->[[12\text{]}] S. Heckman and J. King, “Developing software engineering skills using real tools for automated grading”, in Proceedings of the 49th ACM technical symposium on computer science education, 2018, pp. 794–799.
-\item<1->[[13\text{]}] R. P. Godinho, R. S. C. Espinosa, and C. Horgan, “Mobile software testing and evaluation on real devices in higher education: An irish open device lab case study”, Revista EducaOnline, vol. 15, no. 2, pp. 167–196, 2021.
+\item<1->[[8\text{]}] M. Foroughi Sabzevar, M. Gheisari, and J. Lo, “Development and assessment of a sensor-based orientation and positioning approach for decreasing variation in camera viewpoints and image transformations at construction sites”, Applied Sciences, vol. 10, no. 7, p. 2305, 2020.
+\item<1->[[9\text{]}] S. Zollmann, C. Hoppe, S. Kluckner, C. Poglitsch, H. Bischof, and G. Reitmayr, “Augmented reality for construction site monitoring and documentation”,
+Proceedings of the IEEE, vol. 102, no. 2, pp. 137–154, 2014.
+\item<1->[[10\text{]}] Y. Zhou, H. Luo, and Y. Yang, “Implementation of augmented reality for segment displacement inspection during tunneling construction”, Automation in Construction, vol. 82, pp. 112–121, 2017.
+\item<1->[[11\text{]}] C.-S. Park, D.-Y. Lee, O.-S. Kwon, and X. Wang, “A framework for proactive construction defect management using BIM, augmented reality and ontology-based data collection template”, Automation in construction, vol. 33, pp. 61–71, 2013.
+\item<1->[[12\text{]}] A. Howard, M. Sandler, G. Chu, L.-C. Chen, B. Chen, M. Tan, W. Wang, Y. Zhu, R. Pang, V. Vasudevan, et al., “Searching for mobilenetv3”, in Proceedings of the IEEE/CVF international conference on computer vision, 2019, pp. 1314–1324.
+\item<1->[[13\text{]}] G. Huang, Z. Liu, L. van der Maaten, and K. Weinberger, “Densely connected convolutional networks”, arXiv preprint arXiv:1608.06993, 2016.
+\item<1->[[14\text{]}] M. Tan and Q. Le, “Efficientnet: Rethinking model scaling for convolutional neural networks”, in International conference on machine learning, PMLR, 2019.
 
 
 \end{enumerate}
@@ -521,28 +513,16 @@ Thank you! \vspace{1.5ex}
 \end{frame}
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\begin{frame}{Technologies}
+\begin{frame}{Soft Voting Classifier}
 \begin{changemargin}
 \footnotesize
 
 
-\begin{table}[h]
-\caption{Frameworks that were used in the system}
-\centering\begin{tabular}{rl}
-\toprule
-Library     & Description                           \\
-\midrule
-UIAutomator & Interacting directly with the device  \\
-Kaspresso   & Launching UI tests                    \\
-Kakao       & Launching UI tests                    \\
-Diskord     & Connecting to Discord server via REST \\
-JUnit       & Launching unit-tests                  \\
-Marathon    & Device orchestration                  \\
-\bottomrule
-\end{tabular}
-\label{table:libraries}
-\end{table}
-
+\begin{figure}[h]
+\begin{minipage}[h]{0.91\linewidth}
+\hbox{\hspace{-2em}\includegraphics[width=\linewidth]{img/mobilenet_v3_spec}}
+\end{minipage}
+\end{figure}
 
 \end{changemargin}
 \end{frame}
